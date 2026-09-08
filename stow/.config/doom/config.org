@@ -496,6 +496,48 @@ Misc things introduced in Emacs 31
 (use-package org-block-wrap
   :hook (org-mode . org-block-wrap-mode))
 #+end_src
+** ~org-capture~
+#+begin_src emacs-lisp :tangle yes
+(use-package org
+  :defer t
+  :config
+  (defvar +org-capture-work-inbox-file "~/org/work/work-inbox.org")
+  (defvar +org-capture-work-projects-file "~/org/work/work-projects.org")
+  (defvar +org-capture-work-meetings-file "~/org/work/work-meetings.org")
+  (defvar +org-capture-work-scheduled-file "~/org/work/work-scheduled.org")
+
+  (map! :leader "nn" #'org-capture-goto-target)
+  (map! :leader "nN" #'org-capture)
+
+  (setq org-capture-templates '(("j" "Journal entry"
+                                 entry (file+olp+datetree +org-capture-journal-file)
+                                 (file "~/org/templates/journal.org")
+                                 :prepend t
+                                 :tree-type week)
+                                ("w" "Work Templates")
+                                ("wn" "Work note"
+                                 entry (file+olp+datetree +org-capture-work-inbox-file)
+                                 (file "~/org/templates/note.org")
+                                 :prepend t
+                                 :tree-type week)
+                                ("wi" "Work inbox entry"
+                                 entry (file+olp+datetree +org-capture-work-inbox-file)
+                                 (file "~/org/templates/inbox-entry.org")
+                                 :prepend t
+                                 :tree-type week)
+                                ("ws" "Scheduled work inbox entry"
+                                 entry (file+headline +org-capture-work-scheduled-file "Scheduled")
+                                 (file "~/org/templates/scheduled-entry.org")
+                                 :prepend t)
+                                ("wp" "Work projects"
+                                 entry (file+headline +org-capture-work-projects-file "Work Projects")
+                                 (file "~/org/templates/project.org")
+                                 :prepend t)
+                                ("wm" "Work meeting"
+                                 entry (file+headline +org-capture-work-scheduled-file "Meetings")
+                                 (file "~/org/templates/meeting.org")
+                                 :prepend t))))
+#+end_src
 ** ~org-download~ and ~org-attach~
 #+begin_src emacs-lisp :tangle yes
 (use-package org-attach
@@ -569,48 +611,6 @@ Misc things introduced in Emacs 31
         :n "zi" #'org-link-preview)
   (remove-hook 'org-tab-first-hook #'+org-yas-expand-maybe-h))
 #+end_src
-** ~org-capture~
-#+begin_src emacs-lisp :tangle yes
-(use-package org
-  :defer t
-  :config
-  (defvar +org-capture-work-inbox-file "~/org/work/work-inbox.org")
-  (defvar +org-capture-work-projects-file "~/org/work/work-projects.org")
-  (defvar +org-capture-work-meetings-file "~/org/work/work-meetings.org")
-  (defvar +org-capture-work-scheduled-file "~/org/work/work-scheduled.org")
-
-  (map! :leader "nn" #'org-capture-goto-target)
-  (map! :leader "nN" #'org-capture)
-
-  (setq org-capture-templates '(("j" "Journal entry"
-                                 entry (file+olp+datetree +org-capture-journal-file)
-                                 (file "~/org/templates/journal.org")
-                                 :prepend t
-                                 :tree-type week)
-                                ("w" "Work Templates")
-                                ("wn" "Work note"
-                                 entry (file+olp+datetree +org-capture-work-inbox-file)
-                                 (file "~/org/templates/note.org")
-                                 :prepend t
-                                 :tree-type week)
-                                ("wi" "Work inbox entry"
-                                 entry (file+olp+datetree +org-capture-work-inbox-file)
-                                 (file "~/org/templates/inbox-entry.org")
-                                 :prepend t
-                                 :tree-type week)
-                                ("ws" "Scheduled work inbox entry"
-                                 entry (file+headline +org-capture-work-scheduled-file "Scheduled")
-                                 (file "~/org/templates/scheduled-entry.org")
-                                 :prepend t)
-                                ("wp" "Work projects"
-                                 entry (file+headline +org-capture-work-projects-file "Work Projects")
-                                 (file "~/org/templates/project.org")
-                                 :prepend t)
-                                ("wm" "Work meeting"
-                                 entry (file+headline +org-capture-work-scheduled-file "Meetings")
-                                 (file "~/org/templates/meeting.org")
-                                 :prepend t))))
-#+end_src
 ** ~org-modern~
 #+begin_src emacs-lisp :tangle yes
 (use-package org-modern
@@ -623,6 +623,11 @@ Misc things introduced in Emacs 31
   (org-modern-keyword "‣ ")
   (org-modern-table t)
   (org-modern-todo t))
+#+end_src
+** ~org-pandoc~
+#+begin_src emacs-lisp :tangle yes
+(setopt org-pandoc-options-for-docx
+        '((reference-doc . "~/.pandoc/templates/word-reference.docx")))
 #+end_src
 ** ~org-roam~
 #+begin_src emacs-lisp :tangle yes
@@ -689,6 +694,7 @@ Misc things introduced in Emacs 31
             ("NOTE" :inverse-video t :inherit +org-todo-project)
             ("[-]" :inverse-video t :inherit +org-todo-active))))
 #+end_src
+
 * ~popterm~
 #+begin_src emacs-lisp :tangle yes
 (defun my/popterm-toggle ()

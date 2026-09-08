@@ -391,6 +391,46 @@
 (use-package org-block-wrap
   :hook (org-mode . org-block-wrap-mode))
 
+(use-package org
+  :defer t
+  :config
+  (defvar +org-capture-work-inbox-file "~/org/work/work-inbox.org")
+  (defvar +org-capture-work-projects-file "~/org/work/work-projects.org")
+  (defvar +org-capture-work-meetings-file "~/org/work/work-meetings.org")
+  (defvar +org-capture-work-scheduled-file "~/org/work/work-scheduled.org")
+
+  (map! :leader "nn" #'org-capture-goto-target)
+  (map! :leader "nN" #'org-capture)
+
+  (setq org-capture-templates '(("j" "Journal entry"
+                                 entry (file+olp+datetree +org-capture-journal-file)
+                                 (file "~/org/templates/journal.org")
+                                 :prepend t
+                                 :tree-type week)
+                                ("w" "Work Templates")
+                                ("wn" "Work note"
+                                 entry (file+olp+datetree +org-capture-work-inbox-file)
+                                 (file "~/org/templates/note.org")
+                                 :prepend t
+                                 :tree-type week)
+                                ("wi" "Work inbox entry"
+                                 entry (file+olp+datetree +org-capture-work-inbox-file)
+                                 (file "~/org/templates/inbox-entry.org")
+                                 :prepend t
+                                 :tree-type week)
+                                ("ws" "Scheduled work inbox entry"
+                                 entry (file+headline +org-capture-work-scheduled-file "Scheduled")
+                                 (file "~/org/templates/scheduled-entry.org")
+                                 :prepend t)
+                                ("wp" "Work projects"
+                                 entry (file+headline +org-capture-work-projects-file "Work Projects")
+                                 (file "~/org/templates/project.org")
+                                 :prepend t)
+                                ("wm" "Work meeting"
+                                 entry (file+headline +org-capture-work-scheduled-file "Meetings")
+                                 (file "~/org/templates/meeting.org")
+                                 :prepend t))))
+
 (use-package org-attach
   :after org
   :custom
@@ -458,46 +498,6 @@
         :n "zi" #'org-link-preview)
   (remove-hook 'org-tab-first-hook #'+org-yas-expand-maybe-h))
 
-(use-package org
-  :defer t
-  :config
-  (defvar +org-capture-work-inbox-file "~/org/work/work-inbox.org")
-  (defvar +org-capture-work-projects-file "~/org/work/work-projects.org")
-  (defvar +org-capture-work-meetings-file "~/org/work/work-meetings.org")
-  (defvar +org-capture-work-scheduled-file "~/org/work/work-scheduled.org")
-
-  (map! :leader "nn" #'org-capture-goto-target)
-  (map! :leader "nN" #'org-capture)
-
-  (setq org-capture-templates '(("j" "Journal entry"
-                                 entry (file+olp+datetree +org-capture-journal-file)
-                                 (file "~/org/templates/journal.org")
-                                 :prepend t
-                                 :tree-type week)
-                                ("w" "Work Templates")
-                                ("wn" "Work note"
-                                 entry (file+olp+datetree +org-capture-work-inbox-file)
-                                 (file "~/org/templates/note.org")
-                                 :prepend t
-                                 :tree-type week)
-                                ("wi" "Work inbox entry"
-                                 entry (file+olp+datetree +org-capture-work-inbox-file)
-                                 (file "~/org/templates/inbox-entry.org")
-                                 :prepend t
-                                 :tree-type week)
-                                ("ws" "Scheduled work inbox entry"
-                                 entry (file+headline +org-capture-work-scheduled-file "Scheduled")
-                                 (file "~/org/templates/scheduled-entry.org")
-                                 :prepend t)
-                                ("wp" "Work projects"
-                                 entry (file+headline +org-capture-work-projects-file "Work Projects")
-                                 (file "~/org/templates/project.org")
-                                 :prepend t)
-                                ("wm" "Work meeting"
-                                 entry (file+headline +org-capture-work-scheduled-file "Meetings")
-                                 (file "~/org/templates/meeting.org")
-                                 :prepend t))))
-
 (use-package org-modern
   :after org
   :custom
@@ -508,6 +508,9 @@
   (org-modern-keyword "‣ ")
   (org-modern-table t)
   (org-modern-todo t))
+
+(setopt org-pandoc-options-for-docx
+        '((reference-doc . "~/.pandoc/templates/word-reference.docx")))
 
 (use-package org-roam
   :after org
