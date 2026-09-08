@@ -308,6 +308,7 @@
 (when (>= emacs-major-version 31)
   (setopt treesit-enabled-modes t
           ibuffer-human-readable-size t
+          treesit-auto-install-grammar 'always
           completion-eager-update t
           completion-eager-display 'auto))
 
@@ -375,7 +376,17 @@
   (org-appear-autolinks t)
   (org-appear-autoentities t)
   (org-appear-autokeywords t)
-  (org-appear-trigger 'on-change))
+  (org-appear-trigger 'manual))
+
+(add-hook 'org-mode-hook (lambda ()
+                           (add-hook 'evil-insert-state-entry-hook
+                                     #'org-appear-manual-start
+                                     nil
+                                     t)
+                           (add-hook 'evil-insert-state-exit-hook
+                                     #'org-appear-manual-stop
+                                     nil
+                                     t)))
 
 (use-package org-block-wrap
   :hook (org-mode . org-block-wrap-mode))

@@ -1,0 +1,82 @@
+-format = """
+$cmd_duration\
+$git_branch\
+$git_state\
+$git_status\
+$rust\
+$golang\
+$python\
+$container\
+$line_break\
+$username\
+$hostname\
+$directory\
+$line_break\
+$status\
+$character"""
+
+[directory]
+truncation_length = 3
+style = "blue"
+read_only = " ro"
+use_os_path_sep = true
+format = '[$path]($style)[$read_only]($read_only_style) '
+
+[character]
+success_symbol = "[>](purple)"
+error_symbol = "[>](red)"
+vimcmd_symbol = "[<](green)"
+
+[git_branch]
+format = "branch: [$branch]($style)"
+style = "bright-black"
+
+[hostname]
+ssh_only = false
+format = "[$hostname]($style): "
+
+[username]
+format = "[$user]($style)@"
+show_always = true
+
+[git_status]
+format = " [[($untracked$modified$renamed $conflicted$deleted$staged)](218 $style) ($ahead_behind$stashed)($style)]($style) "
+style = "blue"
+conflicted = "X${count}​"
+untracked = "?${count}​"
+modified = "​!${count}"
+staged = "​+${count}"
+renamed = "#${count}"
+deleted = "-${count}"
+stashed = "≡${count}"
+
+[git_metrics]
+format = '([+$added]($added_style))([-$deleted]($deleted_style))'
+added_style = 'italic dimmed green'
+deleted_style = 'italic dimmed red'
+ignore_submodules = true
+disabled = false
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\)'
+style = "bright-black"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"
+
+[rust]
+style = "italic red"
+format = "[$symbol$version]($style) "
+symbol = "rs "
+
+[golang]
+style = "italic"
+format = "[go $version]($style) "
+
+[docker_context]
+format = " docker [$symbol$context]($style)"
+
+[python]
+format = "[$virtualenv py:$version]($style) "
+style = "italic green"

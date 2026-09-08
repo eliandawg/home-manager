@@ -4,13 +4,16 @@ output "DP-1" {
     mode "2560x1440@180.001"
     scale 1
     position x=0 y=0
+    layout {
+        always-center-single-column
+    }
 }
 
-output "eDP-1" {
-    mode "1920x1080@120.030"
-    scale 2
-    transform "normal"
-    position x=1280 y=0
+output "eDP-2" {
+    mode "2560x1600@239.999"
+    scale 1
+    position x=2560 y=0
+    variable-refresh-rate
 }
 
 output "DP-2" {

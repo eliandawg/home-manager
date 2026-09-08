@@ -28,7 +28,7 @@
 (package! org-block-wrap
   :recipe (:host gitlab :repo "vegasharmon/org-block-wrap"))
 (package! org-habit-ng
-  :recipe (:host codeberg :repo "Trevoke/org-habit-ng"))
+  :recipe (:host github :repo "emacsmirror/org-habit-ng"))
 
 ;;; TRAMP
 (package! tramp-hlo)
@@ -56,6 +56,7 @@
 (package! modus-catppuccin
   :recipe (:host gitlab
            :repo "magus/modus-catppuccin"))
+
 ;; Misc
 (package! ghostel)
 (package! evil-ghostel)

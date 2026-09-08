@@ -402,6 +402,7 @@ Misc things introduced in Emacs 31
 (when (>= emacs-major-version 31)
   (setopt treesit-enabled-modes t
           ibuffer-human-readable-size t
+          treesit-auto-install-grammar 'always
           completion-eager-update t
           completion-eager-display 'auto))
 #+end_src
@@ -478,7 +479,17 @@ Misc things introduced in Emacs 31
   (org-appear-autolinks t)
   (org-appear-autoentities t)
   (org-appear-autokeywords t)
-  (org-appear-trigger 'on-change))
+  (org-appear-trigger 'manual))
+
+(add-hook 'org-mode-hook (lambda ()
+                           (add-hook 'evil-insert-state-entry-hook
+                                     #'org-appear-manual-start
+                                     nil
+                                     t)
+                           (add-hook 'evil-insert-state-exit-hook
+                                     #'org-appear-manual-stop
+                                     nil
+                                     t)))
 #+end_src
 ** ~org-block-wrap~
 #+begin_src emacs-lisp :tangle yes

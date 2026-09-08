@@ -1,39 +1,8 @@
 // DMS Window Rules - Managed by DankMaterialShell
 // Do not edit manually - changes may be overwritten
 
-// @id=wr_1777172768366111193 @name=steam_app_2357570
+// @id=dms-floating-windows @name=DMS Floating Windows
 window-rule {
-    match app-id="^steam_app_2357570$"
-    open-fullscreen true
-}
-
-// @id=wr_1777184839596634407 @name=Horizon-client
-window-rule {
-    match app-id="^Horizon-client$" title="^Omnissa Horizon Client$"
+    match app-id="^com.danklinux.dms$"
     open-floating true
-}
-
-// @id=wr_1777189850270577263 @name=Vintage Story
-window-rule {
-    match app-id="^Vintage Story$"
-    open-fullscreen true
-}
-
-// @id=wr_1777190177538688373 @name=gsr-notify
-window-rule {
-    match app-id="^gsr-notify$"
-    open-floating true
-}
-
-// @id=wr_1777214178417699466 @name=gsr-ui
-window-rule {
-    match app-id="^gsr-ui$"
-    opacity 0.40
-}
-
-// @id=wr_1777214200361568195 @name=gsr-ui
-window-rule {
-    match app-id="^gsr-ui$"
-    open-floating true
-    open-focused false
 }
