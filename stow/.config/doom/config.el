@@ -143,7 +143,8 @@
   (add-hook 'text-mode-hook #'my/flyspell-enable-appropriate-mode))
 
 (with-eval-after-load 'flycheck
-  (add-to-list 'flycheck-org-lint-disabled-checkers `missing-language-in-src-block))
+  (add-to-list 'flycheck-org-lint-disabled-checkers `missing-language-in-src-block)
+  (add-to-list 'flycheck-org-lint-disabled-checkers `percent-encoding-link-escape))
 
 (use-package ispell
   :custom
