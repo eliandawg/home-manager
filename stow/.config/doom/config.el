@@ -105,48 +105,11 @@
 (use-package flycheck
   :defer t
   :config
-  (global-flycheck-annotate-mode))
-
-(defun my/flyspell-prog-mode (&rest _args)
-
-  "Enable `flyspell-prog-mode' with buffer-local Aspell arguments."
-  ;; The --run-together flag instructs Aspell to accept words formed by
-  ;; combining two or more valid dictionary words without spaces, treating the
-  ;; resulting string as valid.
-  ;;
-  ;; This is excellent for source code. Code is heavily populated with
-  ;; compound variable names and technical terms (e.g., filepath, buffername,
-  ;; checkbox).
-  ;; URL: https://www.jamescherti.com/emacs-spell-checker-flyspell-ispell-aspell/
-  (setopt ispell-extra-args '("--sug-mode=ultra"
-                              "--camel-case"
-                              "--ignore=3"))
-  (flyspell-prog-mode))
-
-(defun my/flyspell-enable-appropriate-mode ()
-  "Enable the appropriate Flyspell mode based on the current major mode."
-  (if (or (derived-mode-p 'conf-mode)
-          (derived-mode-p 'yaml-mode)
-          (derived-mode-p 'prog-mode)
-          (derived-mode-p 'yaml-ts-mode)
-          (derived-mode-p 'ansible-mode)
-          (derived-mode-p 'toml-ts-mode)
-          (derived-mode-p 'lisp-interaction-mode)
-          (derived-mode-p 'json-mode)
-          (derived-mode-p 'json-ts-mode))
-      (my/flyspell-prog-mode)
-    (flyspell-mode 1)))
-
-(with-eval-after-load 'flyspell
-  (add-hook 'prog-mode-hook #'my/flyspell-prog-mode)
-  (add-hook 'conf-mode-hook #'my/flyspell-enable-appropriate-mode)
-  (add-hook 'text-mode-hook #'my/flyspell-enable-appropriate-mode))
-
-(with-eval-after-load 'flycheck
-  (add-to-list 'flycheck-org-lint-disabled-checkers `missing-language-in-src-block)
-  (add-to-list 'flycheck-org-lint-disabled-checkers `percent-encoding-link-escape))
+  (if (boundp 'global-flycheck-annotate-mode)
+      (global-flycheck-annotate-mode)))
 
 (use-package ispell
+  :defer t
   :custom
   (ispell-dictionary "en_US")
   (ispell-program-name "aspell")
@@ -157,6 +120,10 @@
   (setopt ispell-extra-args '("--sug-mode=ultra"
                               "--camel-case"
                               "--ignore=3")))
+
+(with-eval-after-load 'flycheck
+  (add-to-list 'flycheck-org-lint-disabled-checkers `missing-language-in-src-block)
+  (add-to-list 'flycheck-org-lint-disabled-checkers `percent-encoding-link-escape))
 
 (use-package ghostel
   :defer t
