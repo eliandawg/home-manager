@@ -1,13 +1,17 @@
-personal_ws-1.1 en 577 
+personal_ws-1.1 en 582 
 ADCS
+AIA
 ATLC
 Auditing
 BDR
 CCNP
 CNAME
+CRL
+CVG
 EAP
 ENCOR
 FortiGate
+GPOs
 IGMP
 IPsec
 LSA
@@ -18,6 +22,7 @@ MSCHAPv
 NDES
 OSPF
 PEAP
+PcoIP
 SCEP
 SERS
 SSID

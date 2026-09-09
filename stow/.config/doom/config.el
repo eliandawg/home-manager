@@ -564,7 +564,7 @@
   (setopt org-modern-todo-faces
           '(("KILL" :inverse-video t :inherit +org-todo-cancel)
             ("NO" :inverse-video t :inherit +org-todo-cancel)
-            ("PROJECT" :inverse-video t :foreground +org-todo-project)
+            ("PROJECT" :inverse-video t :inherit +org-todo-project)
             ("HOLD" :inverse-video t :inherit +org-todo-onhold)
             ("WAIT" :inverse-video t :inherit +org-todo-onhold)
             ("[?]" :inverse-video t :inherit +org-todo-onhold)
